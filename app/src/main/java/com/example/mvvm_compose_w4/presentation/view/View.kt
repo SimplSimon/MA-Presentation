@@ -11,11 +11,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.mvvm_compose_w4.core.data.DemoData
 import com.example.mvvm_compose_w4.core.domain.DriverMessage
 import com.example.mvvm_compose_w4.presentation.ui.theme.MVVMComposew4Theme
 
 class View : ComponentActivity() {
 }
+
+// Previews
+@Preview(showBackground = true)
+@Composable
+fun MVVDisplayPreview() {
+    MVVMComposew4Theme {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+            val demoList = DemoData.create(12, "Pascal", "Severin")
+            TitleBar(label = "Driver Standings",
+                content = {
+                    ScrollList(demoList)
+                })
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DriverElementPreview() {
+    val demoElement = DemoData.create(1, "John", "Doe")
+    DriverElement(demoElement[0])
+}
+
+// Implementations
 
 @Composable
 fun MVVDisplay(drivers: List<DriverMessage>) {
@@ -30,31 +58,17 @@ fun MVVDisplay(drivers: List<DriverMessage>) {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun MVVDisplayPreview() {
-    MVVMComposew4Theme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
-        ) {
-            TitleBar(label = "Driver Standings",
-                content = {
-                    ScrollList(
-                        List(
-                            size = 12,
-                            init = { index ->
-                                DriverMessage(
-                                    index,
-                                    "Pascal",
-                                    "Severin",
-                                    "HM",
-                                    100
-                                )
-                            })
-                    )
-                })
-        }
+fun TitleBar(label: String, content: @Composable () -> Unit) {
+    Scaffold(topBar = {
+        TopAppBar(
+            title = {
+                Text(text = label)
+            }
+        )
+    }
+    ) {
+        content()
     }
 }
 
@@ -101,45 +115,4 @@ fun DriverElement(driver: DriverMessage) {
             .fillMaxWidth()
             .width(2.dp)
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DriverElementPreview() {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Text(text = "1", fontWeight = FontWeight.Bold)
-            Column(modifier = Modifier.padding(start = 10.dp)) {
-                Text(text = "John")
-                Text(text = "Doe")
-            }
-        }
-        Column() {
-            Text(text = "cyclone")
-            Text(text = "207 pts")
-        }
-    }
-}
-
-@Composable
-fun TitleBar(label: String, content: @Composable () -> Unit) {
-    Scaffold(topBar = {
-        TopAppBar(
-            title = {
-                Text(text = label)
-            }
-        )
-    }
-    ) {
-        content()
-    }
 }
