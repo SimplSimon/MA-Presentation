@@ -1,4 +1,4 @@
-package com.example.mvvm_compose_w4.ui.theme
+package com.example.mvvm_compose_w4.presentation.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

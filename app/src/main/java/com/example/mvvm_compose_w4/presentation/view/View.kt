@@ -1,4 +1,4 @@
-package com.example.mvvm_compose_w4.view
+package com.example.mvvm_compose_w4.presentation.view
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.*
@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.mvvm_compose_w4.DriverMessage
-import com.example.mvvm_compose_w4.ui.theme.MVVMComposew4Theme
+import com.example.mvvm_compose_w4.core.domain.DriverMessage
+import com.example.mvvm_compose_w4.presentation.ui.theme.MVVMComposew4Theme
 
 class View : ComponentActivity() {
 }

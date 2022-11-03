@@ -1,4 +1,4 @@
-package com.example.mvvm_compose_w4.ui.theme
+package com.example.mvvm_compose_w4.presentation.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
