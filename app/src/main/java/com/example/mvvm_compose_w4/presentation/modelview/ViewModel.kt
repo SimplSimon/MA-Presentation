@@ -3,27 +3,23 @@ package com.example.mvvm_compose_w4.presentation.modelview
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.mvvm_compose_w4.core.data.ApiModel
-import com.example.mvvm_compose_w4.core.data.Converter
-import com.example.mvvm_compose_w4.network.APIClient
-import com.example.mvvm_compose_w4.network.ApiInterface
+import androidx.compose.runtime.*
+import androidx.lifecycle.Observer
+import com.example.mvvm_compose_w4.dataSource.OnlineDriverDataSource
 import com.example.mvvm_compose_w4.presentation.view.MVVDisplay
-import kotlinx.coroutines.*
 
 class ViewModel : ComponentActivity() {
-    private var standignsTable: ApiModel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        //coroutine to fetch json data
-        val messages = APIClient.getInstance().create(ApiInterface::class.java)
-        GlobalScope.launch(Dispatchers.Main) {
-            runBlocking(Dispatchers.IO) {
-                val result = messages.fetchAllPosts()
-                standignsTable = result.body()
-            }
-
-            setContent { MVVDisplay(Converter.convertApiModelToDriverMessages(standignsTable)) }
+        val dataSource = OnlineDriverDataSource()
+        setContent {
+            var drivers by remember { mutableStateOf(dataSource.getDrivers().value!!) }
+            dataSource.getDrivers().observe(this, Observer {
+                drivers = it
+            })
+            dataSource.updateData()
+            MVVDisplay(drivers)
         }
+
     }
 }
