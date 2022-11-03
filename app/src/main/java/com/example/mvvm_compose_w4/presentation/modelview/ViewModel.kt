@@ -17,14 +17,13 @@ class ViewModel : ComponentActivity() {
 
         //coroutine to fetch json data
         val messages = APIClient.getInstance().create(ApiInterface::class.java)
-        val converter = Converter()
         GlobalScope.launch(Dispatchers.Main) {
             runBlocking(Dispatchers.IO) {
                 val result = messages.fetchAllPosts()
                 standignsTable = result.body()
             }
 
-            setContent { MVVDisplay(converter.convertApiModelToDriverMessages(standignsTable)) }
+            setContent { MVVDisplay(Converter.convertApiModelToDriverMessages(standignsTable)) }
         }
     }
 }
