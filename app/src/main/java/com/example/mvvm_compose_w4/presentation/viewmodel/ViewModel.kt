@@ -1,4 +1,4 @@
-package com.example.mvvm_compose_w4.presentation.modelview
+package com.example.mvvm_compose_w4.presentation.viewmodel
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

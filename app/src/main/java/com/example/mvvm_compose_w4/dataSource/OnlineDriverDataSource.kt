@@ -27,7 +27,7 @@ class OnlineDriverDataSource: DriverDataSource {
         var result: ApiModel?
         GlobalScope.launch(Dispatchers.Main) {
             runBlocking(Dispatchers.IO) {
-                result = messages.fetchAllPosts().body()
+                result = messages.fetchAllData().body()
             }
             if (result != null) {
                 _drivers.value = Converter.convertApiModelToDriverMessages(result)

@@ -7,5 +7,5 @@ import retrofit2.http.GET
 
 interface ApiInterface {
     @GET("driverStandings.json")
-    suspend fun fetchAllPosts(): Response<ApiModel>
+    suspend fun fetchAllData(): Response<ApiModel>
 }
